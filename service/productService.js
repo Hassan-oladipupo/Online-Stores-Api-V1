@@ -67,5 +67,17 @@ module.exports.createProduct = async (serviceData) => {
     }
   }
   
-  
+  module.exports.deleteProduct = async ({ id }) => {
+    try {
+      mongoDbDataFormat.checkObjectId(id);
+      let product = await Product.findByIdAndDelete(id);
+      if (!product) {
+        throw new Error(constants.productMessage.PRODUCT_NOT_FOUND);
+      }
+      return mongoDbDataFormat.formatMongoData(product);
+    } catch (error) {
+      console.log('Something went wrong: Service: deleteProduct', error);
+      throw new Error(error);
+    }
+  }
 

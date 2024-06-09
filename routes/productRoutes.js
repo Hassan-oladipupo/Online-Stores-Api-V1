@@ -30,4 +30,11 @@ router.get('/:id',
     productController.updateProduct
   );
 
+
+  //delete product 
+  router.delete('/:id',
+    productController.deleteProduct
+  )
+
+  
 module.exports = router;    

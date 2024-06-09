@@ -50,7 +50,7 @@ module.exports.getAllProducts = async (req, res) =>
 
 
   //Handle product updated response from the services
-  
+
   module.exports.updateProduct = async (req, res) => {
     let response = { ...constants.defaultServerResponse };
     try {
@@ -63,6 +63,22 @@ module.exports.getAllProducts = async (req, res) =>
       response.body = responseFromService;
     } catch (error) {
       console.log('Something went wrong: Controller: updateProduct', error);
+      response.message = error.message;
+    }
+    return res.status(response.status).send(response);
+  }
+
+
+   //Handle product deleted response from the services
+  module.exports.deleteProduct = async (req, res) => {
+    let response = { ...constants.defaultServerResponse };
+    try {
+      const responseFromService = await productService.deleteProduct(req.params);
+      response.status = 200;
+      response.message = constants.productMessage.PRODUCT_DELETED;
+      response.body = responseFromService;
+    } catch (error) {
+      console.log('Something went wrong: Controller: deleteProduct', error);
       response.message = error.message;
     }
     return res.status(response.status).send(response);

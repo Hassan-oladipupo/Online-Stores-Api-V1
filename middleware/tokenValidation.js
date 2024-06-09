@@ -8,8 +8,7 @@ module.exports.validateToken = (req, res, next) => {
       throw new Error(constants.requestValidationMessage.TOKEN_MISSING);
     }
     const token = req.headers.authorization.split('Bearer')[1].trim();
-    const decoded = jwt.verify(token, process.env.SECRET_KEY || 'my-secret-key');
-    console.log('decoded', decoded);
+     jwt.verify(token, process.env.SECRET_KEY || 'my-secret-key');
     return next();
   } catch (error) {
     console.log('Error', error);
